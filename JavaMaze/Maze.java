@@ -38,7 +38,7 @@ public class Maze extends JFrame implements ActionListener,MouseListener,MouseMo
     // bool_s=false;
     // bool_e=false;
     redraw=0;
-    val=1;
+    val=0;
     x=y=init_gap;
     // l= new JTextField("",13);
     JPanel pane = new JPanel();
@@ -133,18 +133,16 @@ public class Maze extends JFrame implements ActionListener,MouseListener,MouseMo
     System.out.println("arr_i="+arr_i+" ,arr_j="+arr_j);
   }
   public void paint(Graphics g){
-    bool_si = (arr_i==startend[1][0]);
-    bool_sj = (arr_j==startend[1][1]);
-    bool_ei = (arr_i==startend[2][0]);
-    bool_ej = (arr_j==startend[2][1]);
-    bool_s = bool_si && bool_sj;
-    bool_e = bool_ei && bool_ej;
+    // bool_si = (arr_i==startend[1][0]);
+    // bool_sj = (arr_j==startend[1][1]);
+    // bool_ei = (arr_i==startend[2][0]);
+    // bool_ej = (arr_j==startend[2][1]);
+    // bool_s = bool_si && bool_sj;
+    // bool_e = bool_ei && bool_ej;
     if(redraw<1){
       for(int i=0;i<rows;i++){
         for(int j=0;j<columns;j++){
           g.drawRect(j*width+init_gap,i*height+init_gap,width,height);
-          // g.setColor( Color.white );
-          // g.fillRect(j*width+init_gap,i*height+init_gap,width,height);
           switch(map[i][j]){
             case 0: g.setColor( Color.white );
                   g.fillRect(j*width+init_gap,i*height+init_gap,width,height);
@@ -152,26 +150,17 @@ public class Maze extends JFrame implements ActionListener,MouseListener,MouseMo
             case 1: g.setColor( Color.blue );
                   g.fillRect(j*width+init_gap,i*height+init_gap,width,height);
             break;
-            case 3: //g.setColor( Color.white );
-                  // g.fillRect(startend[2][1]*width+init_gap,startend[2][0]*height+init_gap,width,height);
-                  // map[startend[2][0]][startend[2][1]]=0;
-
-                  g.setColor( Color.red );
+            case 3: g.setColor( Color.red );
                   g.fillRect(j*width+init_gap,i*height+init_gap,width,height);
 
                   startend[2][0]=arr_i;
                   startend[2][1]=arr_j;
             break;
-            case 5: //g.setColor( Color.white );
-                  // g.fillRect(startend[1][1]*width+init_gap,startend[1][0]*height+init_gap,width,height);
-                  // map[startend[1][0]][startend[1][1]]=0;
-
-                  g.setColor( Color.green );
+            case 5: g.setColor( Color.green );
                   g.fillRect(j*width+init_gap,i*height+init_gap,width,height);
 
                   startend[1][0]=arr_i;
-                  startend[1][1]=arr_j;                        
-
+                  startend[1][1]=arr_j;  
             break;
           }
         }  
@@ -188,31 +177,7 @@ public class Maze extends JFrame implements ActionListener,MouseListener,MouseMo
           g.drawLine(k * wdOfRow*columns+init_gap, 0+init_gap, k * wdOfRow*columns+init_gap, height*rows+init_gap);
       }
       redraw++;
-    }
-    else if(redraw==1){
-      g.drawRect(arr_j*width+init_gap,arr_i*height+init_gap,width,height);
-      g.setColor( Color.green );
-      g.fillRect(arr_j*width+init_gap,arr_i*height+init_gap,width,height);
-      redraw++;
-
-      g.setColor( Color.white );
-      g.fillRect(startend[1][1]*width+init_gap,startend[1][0]*height+init_gap,width,height);
-      map[startend[1][0]][startend[1][1]]=0;
-      startend[1][0]=arr_i;
-      startend[1][1]=arr_j;
-    }
-    else if(redraw==2){
-      g.drawRect(arr_j*width+init_gap,arr_i*height+init_gap,width,height);
-      g.setColor( Color.red );
-      g.fillRect(arr_j*width+init_gap,arr_i*height+init_gap,width,height);
-      redraw++; 
-
-      g.setColor( Color.white );
-      g.fillRect(startend[2][1]*width+init_gap,startend[2][0]*height+init_gap,width,height);
-      map[startend[2][0]][startend[2][1]]=0;
-      startend[2][0]=arr_i;
-      startend[2][1]=arr_j;
-
+      val=1;
     }
     else{
       g.drawRect(arr_j*width+init_gap,arr_i*height+init_gap,width,height);
@@ -245,16 +210,14 @@ public class Maze extends JFrame implements ActionListener,MouseListener,MouseMo
 
       g.setColor(Color.black);
       int k= arr_i;
-      int htOfRow = height / rows;
-      g.drawLine(0+init_gap, k * htOfRow*rows+init_gap, width*columns+init_gap, k * htOfRow*rows+init_gap);
-
-      g.drawLine(0+init_gap, (k+1) * htOfRow*rows+init_gap, width*columns+init_gap, (k+1) * htOfRow*rows+init_gap);
+      // int htOfRow = height / rows;
+      g.drawLine(0+init_gap, k * height+init_gap, width*columns+init_gap, k * height+init_gap);
+      g.drawLine(0+init_gap, (k+1) * height+init_gap, width*columns+init_gap, (k+1) * height+init_gap);
 
       k=arr_j;
-      int wdOfRow = width / columns;
-      g.drawLine(k * wdOfRow*columns+init_gap, 0+init_gap, k * wdOfRow*columns+init_gap, height*rows+init_gap);
-
-      g.drawLine((k+1) * wdOfRow*columns+init_gap, 0+init_gap, (k+1) * wdOfRow*columns+init_gap, height*rows+init_gap);
+      // int wdOfRow = width / columns;
+      g.drawLine(k * width+init_gap, 0+init_gap, k * width+init_gap, height*rows+init_gap);
+      g.drawLine((k+1) * width+init_gap, 0+init_gap, (k+1) * width+init_gap, height*rows+init_gap);
     }
   }
   public static void main(String args[]){
