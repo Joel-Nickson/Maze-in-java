@@ -117,6 +117,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     addMouseMotionListener(this); 
     addMouseListener(this); 
 
+    setBackground(new Color(200,200,200));
     setLayout(new BorderLayout());
     add(pane,BorderLayout.SOUTH);
     add(tpane,BorderLayout.NORTH);
@@ -189,6 +190,8 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
       randomGridGenerator();
     else {                            // re-paint
       redraw=0;
+      repaint();
+      grids[0][0]=1;
       repaint();
     }
     System.out.println("action perfval="+val);
@@ -704,7 +707,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
 
 public class MazeThread implements Runnable {
   Thread t;
-  public MazeThread(){
+  MazeThread(){
     t=new Thread(this);
     t.start();
   }
