@@ -117,7 +117,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     addMouseMotionListener(this); 
     addMouseListener(this); 
 
-    setBackground(new Color(200,200,200));
+    setBackground(new Color(150,150,150));
     setLayout(new BorderLayout());
     add(pane,BorderLayout.SOUTH);
     add(tpane,BorderLayout.NORTH);
