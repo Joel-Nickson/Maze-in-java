@@ -5,8 +5,7 @@ import javax.swing.*;
 
 public class MazeThreadLogin implements ActionListener{
 
-
-	String insert="insert into logintable (name, username, password) values ";//(32,'cini',60)";
+	String insert="insert into logintable(name,username,password) ";//(32,'cini',60)";
 	String update="update logintable ";//set
 	String select="select * from logintable ";
 	String set="";
@@ -94,7 +93,7 @@ public class MazeThreadLogin implements ActionListener{
 			n= new String(name.getText()).trim();
 			u= new String(user.getText()).trim();
 			p= new String(pass.getPassword()).trim();
-			jdbcUpdate(insert+ new String("values('"+n+"','"+u+"','"+p+"');")); 
+			jdbcUpdate(insert+ new String(" values('"+n+"','"+u+"','"+p+"');")); 
 
 		    JFrame f=new JFrame();  
 		    JOptionPane.showMessageDialog(f,"Registration Successful"); 
@@ -177,7 +176,7 @@ public class MazeThreadLogin implements ActionListener{
 	void jdbcUpdate(String query){
 		try {
             Class.forName("org.postgresql.Driver");
-            Connection c = DriverManager.getConnection("jdbc:postgresql://satao.db.elephantsql.com:5432/xntqejkq" , "xntqejkq", "WjtsAtg6payMqpd1C78pH0sn7q3Ys1dY");
+            Connection c = DriverManager.getConnection("jdbc:postgresql://satao.db.elephantsql.com:5432/mkdqeluv" , "mkdqeluv", "5KnjTGDyXPpyliFd8UExf1I2BR2p1M3Y");
 
             Statement st = c.createStatement();
             st.executeUpdate(query);
