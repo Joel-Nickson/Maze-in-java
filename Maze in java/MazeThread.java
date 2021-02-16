@@ -165,6 +165,9 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
           changeGrid(grid);
           redraw=0;
           repaint();
+          
+          if(600%grid!=0)
+            JOptionPane.showMessageDialog(null,"Use divisors of 600 for a better view");
         }
 
     }
