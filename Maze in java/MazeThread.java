@@ -12,6 +12,8 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
   JRadioButton start,end,block,white ;
   JButton retry,paint,find,rand;
   JTextField numText;
+  JButton getGridNum;
+
   int redraw,s_count;
   int y_gap,x_gap1,x_gap2;
   int startend[][]=new int[3][2];//{
@@ -44,7 +46,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
   Maze(){
     que = new ArrayDeque<Integer>(50);
     stack = new ArrayDeque<Integer>(50);
-    numText = new JTextField();
+    numText = new JTextField(5);
     r = new Random();
     redraw=0;
     s_count=20;
@@ -74,6 +76,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     retry = new JButton("Re-try");
     find = new JButton("Find-Path");
     rand = new JButton("Random");  
+    getGridNum = new JButton("show");
 
     block.setSelected(true);
 
@@ -104,6 +107,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     tpane.add(paint); 
     tpane.add(cb);
     tpane.add(numText);
+    tpane.add(getGridNum);
 
     start.addActionListener(this);
     end.addActionListener(this);
@@ -113,6 +117,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     paint.addActionListener(this);
     find.addActionListener(this);
     rand.addActionListener(this);
+    getGridNum.addActionListener(this);
 
     addMouseMotionListener(this); 
     addMouseListener(this); 
@@ -144,13 +149,24 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
   // public void run(){}
   public void actionPerformed(ActionEvent e){
     t1 = new Thread(this);
-    if(e.getSource()==start){           //green
+    if(e.getSource()==start  ){           //green
       val=5;
-      redraw=1;
-      // if()
-      // grid=neumtext.getText();
-      // redraw=0;
-      // repaint();
+      redraw=1; 
+    }
+    else if(e.getSource()==getGridNum) {    //show
+      String txt =numText.getText();
+      // if string is a number
+        grid=Integer.parseInt(txt);
+        System.out.println("sorry inside getGridNum "+grid);
+        if(grid>600){
+          JOptionPane.showMessageDialog(null,"Give me something below 600");
+        }
+        else{
+          changeGrid(grid);
+          redraw=0;
+          repaint();
+        }
+
     }
     else if(e.getSource()==end){        //red
       val=3;
@@ -280,10 +296,29 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
       num = r.nextInt((max-2*columns));
       ij=gridNumToArrNum(num);
       grids[ij[0]][ij[1]]=1;
-      System.out.println(num+" "+Arrays.toString(ij));
+      // System.out.println(num+" "+Arrays.toString(ij));
     }
     redraw=0;
     repaint();
+  }
+
+  void changeGrid(int grid){
+    this.grid = grid;
+    found=false;
+    redraw=0;
+    s_count=20;
+    val=0;
+    grids= new int[grid][grid];
+    width=600/grid; //optimal = 30
+    height=600/grid;  //optimal = 30
+    rows = grids.length; 
+    columns = grids[0].length;
+
+    max= rows*(rows+1)+columns;    
+    dist = new int[max];
+    edgeFrom = new int[max];
+    isVisited = new boolean[max] ;
+    setBorder();
   }
 
   void setBorder(){
