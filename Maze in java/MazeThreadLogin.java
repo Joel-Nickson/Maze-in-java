@@ -1,5 +1,5 @@
 import java.sql.*;
-import java.awt.*;
+import java.awt.*; 
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -51,11 +51,11 @@ public class MazeThreadLogin implements ActionListener{
         login.addActionListener(this);
         register.addActionListener(this);
 
-        f.setLayout(null);
+        f.setLayout(null);  
         f.setContentPane(new JLabel(new ImageIcon("maze.jpg")));
 
         f.add(login_header);
-        f.add(login);
+        f.add(login); 
         f.add(register);
         f.add(username);
         f.add(user);
@@ -63,7 +63,7 @@ public class MazeThreadLogin implements ActionListener{
         f.add(pass);
 
         f.setSize(1000, 600);
-        // f.setLocationRelativeTo(null);
+        f.setLocationRelativeTo(null);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setVisible(true);
     }
@@ -113,10 +113,11 @@ public class MazeThreadLogin implements ActionListener{
 
 	        login_header = new JLabel("PATH FINDER", SwingConstants.CENTER);
 	        f_reg.setContentPane(new JLabel(new ImageIcon("maze2.jpg")));
-	        // login_header.setFont(new Font("San-Serif", Font.PLAIN, 50));
-	        // login_header.setForeground(Color.white);
+	        login_header.setFont(new Font("San-Serif", Font.PLAIN, 50));
+	        login_header.setForeground(Color.white);
 	        //f.getContentPane().setBackground(Color.CYAN);
 
+	        realname.setForeground(Color.white);
 	        username.setForeground(Color.white);
 	        password.setForeground(Color.white);
 
@@ -192,13 +193,11 @@ public class MazeThreadLogin implements ActionListener{
 		int c=0;
 		if(!(u_table.equals(u))){
 			c++;
-		    JFrame f=new JFrame();  
-		    JOptionPane.showMessageDialog(f,"Username is Incorrectt"); 
+		    JOptionPane.showMessageDialog(null,"Username is Incorrectt"); 
 		}
 		else if(!(p_table.equals(p))){
 			c++;
-		    JFrame f=new JFrame();  
-		    JOptionPane.showMessageDialog(f,"Username is Incorrectt"); 
+		    JOptionPane.showMessageDialog(null,"Username is Incorrectt"); 
 		}
 		if(c==0)
 			return true;

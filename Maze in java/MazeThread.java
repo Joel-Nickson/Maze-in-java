@@ -158,8 +158,8 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
       // if string is a number
         grid=Integer.parseInt(txt);
         System.out.println("sorry inside getGridNum "+grid);
-        if(grid>600)
-          JOptionPane.showMessageDialog(null,"Give me something below 600");
+        if(grid>=600)
+          JOptionPane.showMessageDialog(null,"Give me something below 600\n<100 recommented");
         else{
           changeGrid(grid);
           redraw=0;
