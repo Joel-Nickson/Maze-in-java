@@ -1,10 +1,8 @@
 # Maze-in-java
 
-=============
 
 ##About Maze
 
-=============
 
 The program consist of 3 pages in total. A login page and a registration page which connects to a elephantSQL server using java's JDBC. In the third page we have done a visual representation of path finding algorithm using BFS and DFS in java's GUI.​
 
@@ -27,11 +25,8 @@ Jcombobox- to set bfs or dfs
 TEXTFIELD & SHOW -to change the array size
 
 
-=================
-
 ##Behind The Scene
 
-=================
 
 img/sample arr pres.png  img/gridnum.png img/sample out pres.png
 
@@ -50,11 +45,9 @@ BFS                      DFS
 img/bfspathrandom.png   img/dfspathrandom.png
 
 
-=============
 
 ##REFERENCE
 
-=============
 
 https://www.javatpoint.com/
 
