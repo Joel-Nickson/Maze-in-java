@@ -94,7 +94,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     pane.add(retry);
     pane.add(find);
     pane.add(rand);
-    pane.setBackground(Color.CYAN);
+    // pane.setBackground(Color.CYAN);
     pane.setForeground(Color.black);
     pane.setOpaque(true);
 
@@ -557,6 +557,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
 
           
   public void paint(Graphics g){
+    super.paint(g);
     if(redraw<1){
       for(int i=0;i<rows;i++){
         for(int j=0;j<columns;j++){
