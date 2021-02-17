@@ -46,7 +46,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
   Maze(){
     que = new ArrayDeque<Integer>(50);
     stack = new ArrayDeque<Integer>(50);
-    numText = new JTextField(5);
+    numText = new JTextField("30",3);
     r = new Random();
     redraw=0;
     s_count=20;
