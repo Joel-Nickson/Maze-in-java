@@ -33,7 +33,7 @@ TEXTFIELD & SHOW -to change the array size
 0-White 1-BLock
 5-Start 3-End
 
-![bfspathfound](Maze%20in%20java/img/pathfound.png)
+![bfspathfound](Maze%20in%20java/img/path%20found.png)
 BFS finding the shortest path
 
 ![dfspathfound](Maze%20in%20java/img/dfspath.png)
