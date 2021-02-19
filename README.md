@@ -28,21 +28,21 @@ TEXTFIELD & SHOW -to change the array size
 ## Behind The Scene
 
 
-img/sample arr pres.png  img/gridnum.png img/sample out pres.png
+![sample arr pres](Maze%20in%20java/img/sample%20arr%20pres.png)  [gridnum](Maze%20in%20java/img/gridnum.png) ![sample out pres](Maze%20in%20java/img/sample%20out%20pres.png)
 
 0-White 1-BLock
 5-Start 3-End
 
-img/pathfound.png
+![bfspathfound](Maze%20in%20java/img/pathfound.png)
 BFS finding the shortest path
 
-img/dfspath.png
+![dfspathfound](Maze%20in%20java/img/dfspath.png)
 DFS finds "a path"
 
-img/bfspathblocked.png  img/dfspathblocked.png
+![bfspathblocked](Maze%20in%20java/img/bfspathblocked.png)  ![dfspathblocked](Maze%20in%20java/img/dfspathblocked.png)
 BFS                      DFS
 
-img/bfspathrandom.png   img/dfspathrandom.png
+![bfspathrandom](Maze%20in%20java/img/bfspathrandom.png)  ![dfspathrandom](Maze%20in%20java/img/dfspathrandom.png)
 
 
 
