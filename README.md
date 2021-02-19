@@ -28,7 +28,7 @@ TEXTFIELD & SHOW -to change the array size
 ## Behind The Scene
 
 
-img/sample arr pres.png  img/gridnum.png img/sample out pres.png
+![samparr](img/sample arr pres.png)  [](img/gridnum.png img/sample out pres.png)
 
 0-White 1-BLock
 5-Start 3-End
