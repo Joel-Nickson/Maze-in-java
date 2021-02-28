@@ -27,9 +27,9 @@ FIND-PATH-it connects the starting and the end point.
 
 RANDOM-it randomly generates a wall.
 
-REPAINT-if program is only half painted, use this button.
+REPAINT-if program is half painted, use this button.
 
-Jcombobox- to set bfs or dfs
+COMBOBOX - to set bfs or dfs
 
 TEXTFIELD & SHOW -to change the array size
 
