@@ -14,15 +14,25 @@ The program consist of 3 pages in total. A login page and a registration page wh
 //add img here
 
 START-it sets the starting point.
+
 END-it sets the destination.
+
 BLOCK-it sets the wall.
+
 ERASER-it removes the wall.
+
 RETRY-to try again.
+
 FIND-PATH-it connects the starting and the end point.
+
 RANDOM-it randomly generates a wall.
+
 REPAINT-if program is only half painted, use this button.
+
 Jcombobox- to set bfs or dfs
+
 TEXTFIELD & SHOW -to change the array size
+
 
 
 ## Behind The Scene
