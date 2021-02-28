@@ -34,15 +34,33 @@ TEXTFIELD & SHOW -to change the array size
 5-Start 3-End
 
 ![bfspathfound](Maze%20in%20java/img/path%20found.png)
+
 BFS finding the shortest path
 
 ![dfspathfound](Maze%20in%20java/img/dfspath.png)
+
 DFS finds "a path"
 
-![bfspathblocked](Maze%20in%20java/img/bfspathblocked.png)  ![dfspathblocked](Maze%20in%20java/img/dfspathblocked.png)
-BFS                      DFS
+*************************************************************************************************
 
-![bfspathrandom](Maze%20in%20java/img/bfspathrandom.png)  ![dfspathrandom](Maze%20in%20java/img/dfspathrandom.png)
+![bfspathblocked](Maze%20in%20java/img/bfspathblocked.png) 
+
+BFS through a  wall drawn 
+
+ ![dfspathblocked](Maze%20in%20java/img/dfspathblocked.png)
+ 
+DFS through a  wall drawn 
+ 
+
+*************************************************************************************************
+
+![bfspathrandom](Maze%20in%20java/img/bfspathrandom.png) 
+
+BFS throught a randomly generated wall
+
+![dfspathrandom](Maze%20in%20java/img/dfspathrandom.png)
+
+DFS throught a randomly generated wall
 
 
 
