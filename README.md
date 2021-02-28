@@ -28,7 +28,7 @@ TEXTFIELD & SHOW -to change the array size
 ## Behind The Scene
 
 
-![sample arr pres](Maze%20in%20java/img/sample%20arr%20pres.png)  [gridnum](Maze%20in%20java/img/gridnum.png) ![sample out pres](Maze%20in%20java/img/sample%20out%20pres.png)
+![sample arr pres](Maze%20in%20java/img/sample%20arr%20pres.png) -> [gridnum](Maze%20in%20java/img/gridnum.png) -> ![sample out pres](Maze%20in%20java/img/sample%20out%20pres.png)
 
 0-White 1-BLock
 5-Start 3-End
