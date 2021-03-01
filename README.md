@@ -11,7 +11,7 @@ The program consist of 3 pages in total. A login page and a registration page wh
 ~DFS gives "a path".
 
 
-//add img here
+![maze](Maze%20in%20java/img/maze.png)
 
 START-it sets the starting point.
 
