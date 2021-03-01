@@ -3,12 +3,16 @@
 
 ## About Maze
 
+Maze is path-finding-visualizer which shows a path from the starting point to the end point avoiding the obstacles in between the points.
 
-The program consist of 3 pages in total. A login page and a registration page which connects to a elephantSQL server using java's JDBC. In the third page we have done a visual representation of path finding algorithm using BFS and DFS in java's GUI.​
+Maze uses Bfs to find the shortest path between the given two vertices whereas Dfs just provides a path but it may or may not be the shortest one.
 
-~BFS gives the shortest path.
+The program consist of 3 pages in total.
 
-~DFS gives "a path".
+A login page and a registration page which connects to a elephantSQL server using java's JDBC.
+
+In the third page we have done a visual representation of path finding algorithm using BFS and DFS in java's GUI. 
+
 
 
 ![maze](Maze%20in%20java/img/maze.png)
