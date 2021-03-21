@@ -79,20 +79,7 @@ DFS throught a randomly generated wall
 
 *************************************************************************************************
 
+###[:Edit]
 
-## REFERENCE
-
-
-https://www.javatpoint.com/
-
-https://stackoverflow.com/
-
-https://www.geeksforgeeks.org/
-
-https://docs.oracle.com/en/java/
-
-https://www.youtube.com/
-
-https://www.tutorialspoint.com/
-
-https://www.coursera.org/learn/algorithms-part2/lecture/2e9Ic/dijkstras-algorithm
+A jar file has been added to the repo.
+Anyone who is interested on checking the project can run the Maze.jar file.
