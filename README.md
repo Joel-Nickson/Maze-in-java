@@ -79,7 +79,7 @@ DFS throught a randomly generated wall
 
 *************************************************************************************************
 
-###[:Edit]
+### [:Edit]
 
 A jar file has been added to the repo.
 Anyone who is interested on checking the project can run the Maze.jar file.
