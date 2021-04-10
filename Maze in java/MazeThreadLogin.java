@@ -80,7 +80,7 @@ public class MazeThreadLogin implements ActionListener{
 			    JFrame f=new JFrame();  
 			    JOptionPane.showMessageDialog(f,"Successfully Logged-in"); 
 			    this.f.dispose();
-				new MazeThread();
+				new MazeThread(); 
 			}
 			else{
 				System.out.println("sorry..."+u+" "+p);
@@ -204,7 +204,7 @@ public class MazeThreadLogin implements ActionListener{
 		else
 			return false;
 	}
-
+ 
 	public static void main(String args[]){
 		new MazeThreadLogin();
 	}
