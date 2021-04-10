@@ -53,8 +53,10 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     s_count=20;
     val=1;
     y=y_gap = 120;
-    x=x_gap1 = 470;
-    // x_gap2 = 250+600;
+    x=x_gap1 = 100;
+    x_gap2 = 250+600;
+    
+    grids = grids_real;
 
     grids = grids_real;
 
@@ -150,10 +152,10 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
 
   public void actionPerformed(ActionEvent e){
     t1 = new Thread(this);
-    if(e.getSource()==start  ){           //green
+    if(e.getSource()==start){           //green
       val=5;
-      redraw=1; 
-    }
+      redraw=1;
+    }    
     else if(e.getSource()==getGridNum) {    //show
       String txt =numText.getText();
       // if string is a number
@@ -166,7 +168,8 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
         else{
           changeGrid(grid);
           redraw=0;
-          repaint(470,120,650,650);
+          //recent changes
+          repaint();
           startend = new int[3][2];
 
           if(600%grid!=0)
@@ -194,7 +197,15 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
       repaint(470,120,650,650);
     }
     else if(e.getSource()==find){     // path finder
-      repainter();
+
+      replace8n7();
+      setInitialToVal(dist,0);
+      setInitialToVal(edgeFrom,0);
+      setInitialToVal(isVisited,false);
+
+      found=false;
+      dist[startNum]=-1;
+      edgeFrom[startNum]=-1;
       // int copy[][]=getCopy(grids);
       String cbtext=String.valueOf(cb.getItemAt(cb.getSelectedIndex())); //cb.getSelectedItem();
       // System.out.println("********************************* "+cbtext+" ****************************************");
@@ -207,9 +218,11 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
       //    public void run() {
       //       pathFinderBFS(startNum);         }
       // });
+      
     }
-    else if(e.getSource()==rand)      // reandom grid
+    else if(e.getSource()==rand){      // reandom grid
       randomGridGenerator();
+    }
     else {                            // re-paint
       redraw=0;
 
@@ -254,11 +267,14 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
 
   void arr_xy(int x,int y){
     arr_i=(y- y_gap )/height;  //arr_i=(y-40)/40
-    arr_j=(x- x_gap1 )/width;    //80/20 4
+    arr_j=(x- x_gap1 )/width;   //80/20 4
     
+    if(arr_j>grid)
+      arr_j=(x- x_gap2 )/width;
+
     if(arr_i<=0 || arr_j<=0 || arr_i>=grid-1 || arr_j>=grid-1 )
       return ;
- 
+
     grids[arr_i][arr_j]=val;
     repaint(470,120,650,650);
     System.out.println("arr_i="+arr_i+" ,arr_j="+arr_j);
@@ -327,7 +343,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
       num = r.nextInt((max-2*columns));
       ij=gridNumToArrNum(num);
       grids[ij[0]][ij[1]]=1;
-      // System.out.println(num+" "+Arrays.toString(ij));
+      //System.out.println(num+" "+Arrays.toString(ij));
     }
     redraw=0;
     repaint(470,120,650,650);
@@ -338,7 +354,11 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     found=false;
     redraw=0;
     s_count=20;
-    grids= new int[grid][grid];
+
+    val=0;
+    grids_real= new int[grid][grid];
+    grids = grids_real;
+
     width=600/grid; //optimal = 30
     height=600/grid;  //optimal = 30
     rows = grids.length; 
@@ -352,6 +372,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
   }
 
   void setBorder(){
+    block.setSelected(true);
     for(int j=0;j<columns;j++){
       grids[0][j]=1;
       grids[rows-1][j]=1;
@@ -366,9 +387,10 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     for(int i=0;i<grid;i++)
       for(int j=0;j<grid;j++)
         if(grids[i][j]==8||grids[i][j]==7)
-          grids[i][j]=0;
+
+          grids[i][j]=0; 
   }
-  
+
   void pathFinderDFS(int gridNum){
     grids[0][0]=1;
     stack.addLast(gridNum);
@@ -405,9 +427,9 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     }
     // System.out.println("Head element remove : " + gridNum+" "+stack);
     stack.clear();
-    System.out.println("out of while");
+    // System.out.println("out of while");
     if(found){
-      System.out.println("inside found");
+      // System.out.println("inside found");
       int shortpath=endNum;
       while(edgeFrom[shortpath]!=-1){
         shortpath=edgeFrom[shortpath];
@@ -422,8 +444,9 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
           break;
         }
       }
-      System.out.println("out of while again");
-      repaint(470,120,650,650);
+      
+      // System.out.println("out of while again");
+      repaint();
     }
     ij=gridNumToArrNum(startNum);
     grids[ij[0]][ij[1]]=5;
@@ -531,7 +554,8 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     repaint(470,120,650,650);
   }
 
-  void adjElements(int gridNum,ArrayDeque<Integer> que){
+  void adjElements(int gridNum,ArrayDeque <Integer>que){
+    // int sides[]={1,columns,-1,-columns};
     // right
     if( (arr_j+1 < columns-1) && (grids[arr_i][arr_j+1] != 1) && !isVisited[gridNum+1] ){ //checks if (its not a border) and (not a block)          
       if(dist[gridNum+1]==0){
@@ -587,6 +611,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
   }
 
 
+
   boolean nearStart(){
     if(arrNumToGridNum( arr_i+1 ,arr_j )==startNum)
       return true;
@@ -609,29 +634,72 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
 
     return a;
   }
+
+  // paint functtions
+  void colorSelector(Graphics g,int val,int x_gap){
+    switch(val){
+      case 0: g.setColor( Color.white );
+      break;
+      case 1: g.setColor( Color.black );
+      break;
+      case 3: if(redraw!=0){
+                g.setColor( Color.white );
+                g.fillRect(startend[2][1]*width+x_gap,startend[2][0]*height+y_gap,width,height);
+                // g.fillRect(startend[2][1]*width+x_gap2,startend[2][0]*height+y_gap,width,height);
+                if( x_gap!=x_gap1 ){
+                  grids[startend[2][0]][startend[2][1]]=0;
+                  startend[2][0]=arr_i;
+                  startend[2][1]=arr_j;  
+                }
+                endNum = arrNumToGridNum(arr_i,arr_j);
+              }
+              g.setColor( Color.red );
+      break;
+      case 5: if(redraw>0){
+                g.setColor( Color.white );
+                g.fillRect(startend[1][1]*width+x_gap,startend[1][0]*height+y_gap,width,height);
+                // g.fillRect(startend[1][1]*width+x_gap2,startend[1][0]*height+y_gap,width,height);
+                 if( x_gap!=x_gap1 ){
+                  grids[startend[1][0]][startend[1][1]]=0;
+                  startend[1][0]=arr_i;
+                  startend[1][1]=arr_j;
+                }
+ 
+                startNum = arrNumToGridNum(arr_i,arr_j);
+              }
+              g.setColor( Color.green );
+      break;
+      case 7: g.setColor( Color.yellow );
+      break;
+      case 8: g.setColor( gray );
+      break;
+    }
+  }
+  void gridPainter(Graphics g,int i,int j,int x_gap,int val){
+    colorSelector(g,val,x_gap);
+    g.drawRect(j*width+x_gap,i*height+y_gap,width,height);  
+    g.fillRect(j*width+x_gap,i*height+y_gap,width,height);  
+  }
+        
+
   public void paint(Graphics g){
+    // if(firstGrid){
+
+    //   firstGrid=false;
+    // }
+    // else if(secondGrid){
+
+    //   secondGrid=false;
+    // }
     if(redraw<1){
       for(int i=0;i<rows;i++){
         for(int j=0;j<columns;j++){
-          switch(grids[i][j]){
-            case 0: g.setColor( Color.white );
-            break;
-            case 1: g.setColor( Color.black );
-            break;
-            case 3: g.setColor( Color.red );
-            break;
-            case 5: g.setColor( Color.green );
-            break;
-            case 7: g.setColor( Color.yellow );
-            break;
-            case 8: g.setColor( gray );
-            break;
-          }
-          g.drawRect(j*width+x_gap1,i*height+y_gap,width,height);   
-          g.fillRect(j*width+x_gap1,i*height+y_gap,width,height);  
-          
+
+          gridPainter(g,i,j,x_gap1,grids[i][j]);
+          gridPainter(g,i,j,x_gap2,grids[i][j]);
           //number
           // g.setColor( Color.black );
+          // g.drawString(String.valueOf(arrNumToGridNum(i,j)),j*width+init_gap,i*height+init_gap+height);
           // g.drawString(String.valueOf(arrNumToGridNum(i,j)),j*width+init_gap,i*height+init_gap+height);
         }  
       }
@@ -639,64 +707,44 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
       g.setColor(Color.black);
       for (int k = 0; k <= rows; k++) {
           g.drawLine(0+x_gap1, k * height+y_gap, width*columns+x_gap1, k * height+y_gap);
+          g.drawLine(0+x_gap2, k * height+y_gap, width*columns+x_gap2, k * height+y_gap);
       }
 
       for (int k = 0; k <= columns; k++) {
           g.drawLine(k * width+x_gap1, 0+y_gap, k * width+x_gap1, height*rows+y_gap);
+          g.drawLine(k * width+x_gap2, 0+y_gap, k * width+x_gap2, height*rows+y_gap);
       }
       redraw++;
+
+      // val=1;
     }
     else{
-      switch(val){
-        case 0: g.setColor( Color.white );
-        break;
-        case 1: g.setColor( Color.black );
-        break;
-        case 3: g.setColor( Color.white );
-              g.fillRect(startend[2][1]*width+x_gap1,startend[2][0]*height+y_gap,width,height);
-              grids[startend[2][0]][startend[2][1]]=0;
-
-              startend[2][0]=arr_i;
-              startend[2][1]=arr_j;  
-
-              endNum = arrNumToGridNum(arr_i,arr_j);
-
-              g.setColor( Color.red );
-        break;
-        case 5: g.setColor( Color.white );
-              g.fillRect(startend[1][1]*width+x_gap1,startend[1][0]*height+y_gap,width,height);
-              grids[startend[1][0]][startend[1][1]]=0;
-
-              startend[1][0]=arr_i;
-              startend[1][1]=arr_j;  
-
-              startNum = arrNumToGridNum(arr_i,arr_j);
-
-              g.setColor( Color.green );
-        break;
-        case 7: g.setColor( Color.yellow );
-        break;
-        case 8: g.setColor( gray );
-        break;
-      }
-      g.drawRect(arr_j*width+x_gap1,arr_i*height+y_gap,width,height);
-      g.fillRect(arr_j*width+x_gap1 ,arr_i*height+y_gap ,width,height);
       
+      gridPainter(g,arr_i,arr_j,x_gap1,val);
+      gridPainter(g,arr_i,arr_j,x_gap2,val);
+
       //grid lines
       g.setColor(Color.black);
 
       int k= arr_i; //top & bottom
       g.drawLine(0+x_gap1, k * height+y_gap, width*columns+x_gap1, k * height+y_gap);
       g.drawLine(0+x_gap1, (k+1) * height+y_gap, width*columns+x_gap1, (k+1) * height+y_gap);
+      //top & bottom2
+      g.drawLine(0+x_gap2, k * height+y_gap, width*columns+x_gap2, k * height+y_gap);
+      g.drawLine(0+x_gap2, (k+1) * height+y_gap, width*columns+x_gap2, (k+1) * height+y_gap);
 
       k=arr_j; // right & left]
       g.drawLine(k * width+x_gap1, 0+y_gap, k * width+x_gap1, height*rows+y_gap);
       g.drawLine((k+1) * width+x_gap1, 0+y_gap, (k+1) * width+x_gap1, height*rows+y_gap);
+      // right & left2
+      g.drawLine(k * width+x_gap2, 0+y_gap, k * width+x_gap2, height*rows+y_gap);
+      g.drawLine((k+1) * width+x_gap2, 0+y_gap, (k+1) * width+x_gap2, height*rows+y_gap);
 
       // setting 1st block again 
       g.fillRect(0+x_gap1,0+y_gap,width,height);
+      g.fillRect(0+x_gap2,0+y_gap,width,height);
 
-    }
+    } 
   }
 }
 
@@ -709,7 +757,12 @@ public class MazeThread implements Runnable {
     t.start();
   }
   public void run() {
+    try{
       new Maze();
+    }
+    catch(Exception e){
+      System.out.println(e);
+    }
     
   }
   public static void main(String args[]){
