@@ -35,7 +35,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
                  //   {1,1,1,1,1,1,1,1,1,1,}
                  // };
   
-  int width ,height ,rows ,columns ,endNum ,startNum ,max ,trun=0;
+  int width ,height ,rows ,columns ,endNum ,startNum ,max;
 
   int ij[], dist[], edgeFrom[];
   boolean isVisited[] ,found;
@@ -56,8 +56,6 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     x=x_gap1 = 100;
     x_gap2 = 250+600;
     
-    grids = grids_real;
-
     grids = grids_real;
 
     width=600/grid; //optimal = 30
@@ -129,27 +127,29 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
 
     setBackground(new Color(150,150,150));
     setLayout(new BorderLayout());
-    getContentPane().add(pane,BorderLayout.SOUTH);
+    add(pane,BorderLayout.SOUTH);
     add(tpane,BorderLayout.NORTH);
 
 
-    setSize(800,720);
+    setSize(510,510);
     setExtendedState( getExtendedState()|JFrame.MAXIMIZED_BOTH );
     setVisible(true);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setBorder();
-
-    // t2 = new Thread(this);
-    // t3 = new Thread(this);
   }
   public void run(){
-    repaint(470,120,650,650);//470,120,
+
+    setInitialToVal(grids,0);
+    setInitialToVal(dist,0);
+    setInitialToVal(edgeFrom,0);
+    setInitialToVal(isVisited,false);
+    setBorder();
     // try{
     //     Thread.sleep(s_count);
     // }
     // catch(Exception e){ System.out.println(e); }
   }
-
+  // public void run(){}
   public void actionPerformed(ActionEvent e){
     t1 = new Thread(this);
     if(e.getSource()==start){           //green
@@ -168,9 +168,8 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
         else{
           changeGrid(grid);
           redraw=0;
-          //recent changes
           repaint();
-          startend = new int[3][2];
+          startend = new int[3][2];;
 
           if(600%grid!=0)
             JOptionPane.showMessageDialog(null,"Use divisors of 600 for a better view");
@@ -188,16 +187,15 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     else if(e.getSource()==white)       //eraser
       val=0;
     else if(e.getSource()==retry){      //retry
-      setInitialToVal();
+      t1.start();
       found=false;
       startend=new int[3][2];
       block.setSelected(true);
       val=1;
       redraw=0;
-      repaint(470,120,650,650);
+      repaint();
     }
     else if(e.getSource()==find){     // path finder
-
       replace8n7();
       setInitialToVal(dist,0);
       setInitialToVal(edgeFrom,0);
@@ -207,7 +205,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
       dist[startNum]=-1;
       edgeFrom[startNum]=-1;
       // int copy[][]=getCopy(grids);
-      String cbtext=String.valueOf(cb.getItemAt(cb.getSelectedIndex())); //cb.getSelectedItem();
+      String cbtext=String.valueOf(cb.getItemAt(cb.getSelectedIndex()));
       // System.out.println("********************************* "+cbtext+" ****************************************");
       if(cbtext=="bfs")
         pathFinderBFS(startNum);
@@ -225,7 +223,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     }
     else {                            // re-paint
       redraw=0;
-
+      
       ij= gridNumToArrNum(startNum);
       grids[ij[0]][ij[1]]=5;
 
@@ -233,19 +231,11 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
       grids[ij[0]][ij[1]]=3;
 
       grids[0][0]=1;
-      repaint(470,120,650,650);
+      repaint();
     }
     System.out.println("action perfval="+val);
   }
-  void repainter(){
-    replace8n7();
-    setInitialToVal(dist,0);
-    setInitialToVal(edgeFrom,0);
-    setInitialToVal(isVisited,false);
-    found=false;
-    dist[startNum]=-1;
-    edgeFrom[startNum]=-1;
-  }
+
 
   public void mouseClicked(MouseEvent e) { }  
   public void mouseEntered(MouseEvent e) { }  
@@ -276,7 +266,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
       return ;
 
     grids[arr_i][arr_j]=val;
-    repaint(470,120,650,650);
+    repaint();
     System.out.println("arr_i="+arr_i+" ,arr_j="+arr_j);
   }
   int arrNumToGridNum(int i,int j){
@@ -302,13 +292,6 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
   void setInitialToVal(boolean arr[],boolean val){
     for(int i=0;i<arr.length;i++)
       arr[i]=val;
-  }
-  void setInitialToVal(){
-    setInitialToVal(grids,0);
-    setInitialToVal(dist,0);
-    setInitialToVal(edgeFrom,0);
-    setInitialToVal(isVisited,false);
-    setBorder();
   }
 
   int count(int val){
@@ -346,7 +329,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
       //System.out.println(num+" "+Arrays.toString(ij));
     }
     redraw=0;
-    repaint(470,120,650,650);
+    repaint();
   }
 
   void changeGrid(int grid){
@@ -354,11 +337,9 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     found=false;
     redraw=0;
     s_count=20;
-
     val=0;
     grids_real= new int[grid][grid];
     grids = grids_real;
-
     width=600/grid; //optimal = 30
     height=600/grid;  //optimal = 30
     rows = grids.length; 
@@ -387,9 +368,10 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     for(int i=0;i<grid;i++)
       for(int j=0;j<grid;j++)
         if(grids[i][j]==8||grids[i][j]==7)
-
           grids[i][j]=0; 
   }
+
+
 
   void pathFinderDFS(int gridNum){
     grids[0][0]=1;
@@ -444,7 +426,6 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
           break;
         }
       }
-      
       // System.out.println("out of while again");
       repaint();
     }
@@ -453,7 +434,7 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     ij=gridNumToArrNum(endNum);
     grids[ij[0]][ij[1]]=3;
     redraw=0;
-    repaint(470,120,650,650);
+    repaint();
   }
 
 
@@ -486,29 +467,9 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
 
       // t1.start();
       // redraw=0;
-      // repaint(470,120,650,650);
-      new Thread(new Runnable() {
-        public void run() 
-        {
-          for (int i = 0; i <= 10; i++) {
-            try{
-                Thread.sleep(5);
-            }
-            catch(Exception e){  System.out.println(e);  }
-            repaint();
-          }
-          // trun++;
-        }   
-      }).start();
-      // try{  
-      //   if(t2.isAlive()==false){
-      //     t2.start();
-      //     t2.setPriority(10);
-      //     t2.join();
-      //     // Thread.sleep(10);
-      //     // t2.destroy();
-      //   }
-      // } catch(Exception e){  System.out.println(e);  }
+      // repaint();
+      // try{  Thread.sleep(s_count);  }
+      // catch(Exception e){  System.out.println(e);  }
 
       if(gridNum == endNum)
         found=true;
@@ -544,14 +505,14 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
         }
       }
       // System.out.println("out of while again");
-      repaint(470,120,650,650);
+      repaint();
     }
     ij=gridNumToArrNum(startNum);
     grids[ij[0]][ij[1]]=5;
     ij=gridNumToArrNum(endNum);
     grids[ij[0]][ij[1]]=3;
     redraw=0;
-    repaint(470,120,650,650);
+    repaint();
   }
 
   void adjElements(int gridNum,ArrayDeque <Integer>que){
@@ -694,7 +655,6 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
     if(redraw<1){
       for(int i=0;i<rows;i++){
         for(int j=0;j<columns;j++){
-
           gridPainter(g,i,j,x_gap1,grids[i][j]);
           gridPainter(g,i,j,x_gap2,grids[i][j]);
           //number
@@ -715,7 +675,6 @@ class Maze extends JFrame implements ActionListener,MouseListener,MouseMotionLis
           g.drawLine(k * width+x_gap2, 0+y_gap, k * width+x_gap2, height*rows+y_gap);
       }
       redraw++;
-
       // val=1;
     }
     else{
