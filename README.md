@@ -1,7 +1,4 @@
 # Maze-in-java
- 
-
-## About Maze
 
 Maze is path-finding-visualizer which shows a path from the starting point to the end point avoiding the obstacles in between the points.
 
